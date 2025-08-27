@@ -1,0 +1,12 @@
+const persistedTableSettingsStores = {
+  table1: table1Store
+  table2: table2Store
+};
+
+export const getPersistedTableSettings = <T extends keyof typeof persistedTableSettingsStores>(key?: T) => {
+  if (!key) {
+    return null;
+  }
+
+  return persistedTableSettingsStores[key];
+};
