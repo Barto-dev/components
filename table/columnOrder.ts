@@ -1,40 +1,37 @@
-import type { ColumnSizingState, OnChangeFn } from "@tanstack/react-table";
+import type { ColumnOrderState, OnChangeFn } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
-interface UseColumnSizeOptions {
+interface UseColumnOrderOptions {
   storageKey?: TableStorageKey;
 }
 
-interface UseColumnSizeReturn {
-  columnSizing: ColumnSizingState;
-  onColumnSizingChange: OnChangeFn<ColumnSizingState>;
-}
-
-export const useColumnSize = (options?: UseColumnSizeOptions) => {
+export const useColumnOrder = (
+  options?: UseColumnOrderOptions
+) => {
   const { storageKey } = options || {};
   const tableSettings = getPersistedTableSettings(storageKey);
 
-  const initialSizing = tableSettings?.use.columnSizing?.() || {};
-  const persistSizing = tableSettings?.use.setColumnSizing();
-  const defaultSizing = useMemo(() => initialSizing, [storageKey]);
+  const initialOrder = tableSettings?.use.columnOrder?.() || [];
+  const persistOrder = tableSettings?.use.setColumnOrder();
+  const defaultOrder = useMemo(() => initialOrder, [storageKey]);
 
-  const [columnSizing, setColumnSizing] =
-    useState<ColumnSizingState>(defaultSizing);
+  const [columnOrder, setColumnOrder] =
+    useState<ColumnOrderState>(defaultOrder);
 
-  const onColumnSizingChange: OnChangeFn<ColumnSizingState> = (
+  const onColumnOrderChange: OnChangeFn<ColumnOrderState> = (
     updaterOrValue
   ) => {
-    const newSizing =
+    const newOrder =
       typeof updaterOrValue === "function"
-        ? updaterOrValue(columnSizing)
+        ? updaterOrValue(columnOrder)
         : updaterOrValue;
-    persistSizing?.(newSizing);
-    setColumnSizing(newSizing);
-    return newSizing;
+    persistOrder?.(newOrder);
+    setColumnOrder(newOrder);
+    return newOrder;
   };
 
   return {
-    columnSizing,
-    onColumnSizingChange
+    columnOrder,
+    onColumnOrderChange
   };
 };
