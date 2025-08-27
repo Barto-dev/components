@@ -3,15 +3,11 @@ import { useMemo, useState } from "react";
 
 import { getPersistedTableSettings } from "";
 
-type TableStorageKey = Parameters<typeof getPersistedTableSettings>[0];
-
 interface UseColumnSizeOptions {
   storageKey?: TableStorageKey;
 }
 
-export const useColumnSize = (
-  options?: UseColumnSizeOptions
-): UseColumnSizeReturn => {
+export const useColumnSize = (options?: UseColumnSizeOptions) => {
   const { storageKey } = options || {};
   const tableSettings = getPersistedTableSettings(storageKey);
 
