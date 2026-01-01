@@ -1,5 +1,5 @@
 const persistedTableSettingsStores = {
-  table1: table1Store
+  table1: table1Store,
   table2: table2Store
 };
 

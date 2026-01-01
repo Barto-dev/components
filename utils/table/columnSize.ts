@@ -1,7 +1,7 @@
 import type { ColumnSizingState, OnChangeFn } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
-import { getPersistedTableSettings } from "";
+import { getPersistedTableSettings } from "utils/table";
 
 interface UseColumnSizeOptions {
   storageKey?: TableStorageKey;
